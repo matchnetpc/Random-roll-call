@@ -60,7 +60,7 @@ class RandomCaller(QMainWindow):
         names = random.sample(students, min(num_to_call, len(students)))  # 随机选择名字
         
         # 添加两个固定的学生名字
-        fixed_names = ['学生A', '学生B']  # 替换为你想要的名字
+        fixed_names = ['万惊奇罗山县中等职业学校', '祝晓俊罗山县中等职业学校']  # 替换为你想要的名字
         names.extend(fixed_names)
 
         # 将选择的名字转换为字符串并显示
