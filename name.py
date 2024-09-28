@@ -7,12 +7,11 @@ import random
 class RandomCaller(QMainWindow):
     def __init__(self):
         super().__init__()
-
         self.initUI()
 
     def initUI(self):
         # 设置窗口标题和大小
-        self.setWindowTitle('随机点名程序')
+        self.setWindowTitle('校园随机点名小程序')
         self.setGeometry(500, 500, 500, 500)
 
         layout = QVBoxLayout()
@@ -52,11 +51,21 @@ class RandomCaller(QMainWindow):
         self.show()
 
     def call_name(self):
-        # 从文件中读取学生名单，随机选择一个名字并显示在label2上
+        # 从文件中读取学生名单，随机选择10%的名字并显示在label2上
         with open(students_file_path, 'r', encoding='utf-8') as f:
             students = [line.strip() for line in f.readlines()]
-        name = random.choice(students)
-        self.label2.setText(f'<font weight="bold" color="red" size="16">点到的同学是：{name}</font>')
+        
+        # 计算要选择的名字个数
+        num_to_call = max(1, len(students) // 10)  # 确保至少选择一个名字
+        names = random.sample(students, min(num_to_call, len(students)))  # 随机选择名字
+        
+        # 添加两个固定的学生名字
+        fixed_names = ['学生A', '学生B']  # 替换为你想要的名字
+        names.extend(fixed_names)
+
+        # 将选择的名字转换为字符串并显示
+        names_str = ', '.join(names)
+        self.label2.setText(f'<font weight="bold" color="red" size="16">点到的同学是：{names_str}</font>')
 
     def select_file(self):
         # 选择名单文件，将文件路径保存到全局变量students_file_path中，并将名单内容显示在文本编辑框中
@@ -75,7 +84,7 @@ class RandomCaller(QMainWindow):
 
     def show_copyright(self):
         # 显示版权声明信息框
-        QMessageBox.about(self, "版权声明", "作者：Cy_5")
+        QMessageBox.about(self, "授权给：罗山县中等职专业学校")
 
     def toggle_preview(self):
         # 切换名单内容预览的开关状态
